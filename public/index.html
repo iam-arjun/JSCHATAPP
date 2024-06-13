@@ -214,7 +214,7 @@
                                 </h4>
                             </div>
                             <div id="msg-display-area"></div>
-                          
+
                             <p id="sender-msg" class="text-primary"></p>
                             <p id="receiver-msg" class="text-success"></p>
 
@@ -254,10 +254,10 @@
 
 
     <script>
- 
+
         let friendsList = [];
         let GET_MSGS = [];
-       let  loginStatus = JSON.parse(sessionStorage.getItem('authdata'))
+        let loginStatus = JSON.parse(sessionStorage.getItem('authdata'))
         const displayFrns = async () => {
             try {
                 if (loginStatus) {
@@ -280,7 +280,7 @@
 
 
 
-        
+
             displayFrns()
             // setInterval(() => {
             //     getMsgs()
@@ -292,6 +292,7 @@
             setTimeout(() => {
 
                 const dataContainer = document.getElementById('friendLink');
+                console.log('frindlist',friendsList)
 
                 friendsList.forEach(item => {
                     const itemElement = document.createElement('a');
@@ -555,7 +556,7 @@
                     }
 
                 })
-              
+
 
 
             } catch (error) {
@@ -563,7 +564,7 @@
             }
 
         }
-       
+
 
     </script>
 </body>
