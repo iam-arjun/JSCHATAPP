@@ -214,22 +214,7 @@
                                 </h4>
                             </div>
                             <div id="msg-display-area"></div>
-                            <!-- <div class="d-flex justify-content-end mb-4">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                                    alt="avatar 1" style="width: 45px; height: 100%;">
-                                <div class="p-3 ms-3"
-                                    style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
-                                    <p class="small mb-0" id="sender-msg"></p>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-start mb-4">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                                    alt="avatar 1" style="width: 45px; height: 100%;">
-                                <div class="p-3 ms-3"
-                                    style="border-radius: 15px; background-color: rgba(255, 255, 255, 0.2);">
-                                    <p class="small mb-0" id="receiver-msg">$</p>
-                                </div>
-                            </div> -->
+                          
                             <p id="sender-msg" class="text-primary"></p>
                             <p id="receiver-msg" class="text-success"></p>
 
@@ -277,7 +262,7 @@
             try {
                 if (loginStatus) {
 
-                    const response = await axios.post('http://localhost:3000/auth/displayFrns', loginStatus);
+                    const response = await axios.post('https://jschatapp.onrender.com/auth/displayFrns', loginStatus);
                     friendsList = response.data.data
 
 
@@ -349,7 +334,7 @@
 
         }
 
-        const socket = io("http://localhost:3000",
+        const socket = io("https://jschatapp.onrender.com",
             {
 
                 query: {
@@ -402,7 +387,7 @@
 
             try {
                 // Send the user data to the server using Axios
-                const response = await axios.post('http://localhost:3000/auth/signup', user);
+                const response = await axios.post('https://jschatapp.onrender.com/auth/signup', user);
 
 
                 alert('Signup successful');
@@ -434,7 +419,7 @@
 
             try {
                 // Send the user data to the server using Axios
-                const response = await axios.post('http://localhost:3000/auth/login', user);
+                const response = await axios.post('https://jschatapp.onrender.com/auth/login', user);
 
 
                 alert('Login successful');
@@ -460,7 +445,7 @@
             try {
                 // Send the user data to the server using Axios
                 if (confirm('Do you want to logout? ')) {
-                    const response = await axios.get('http://localhost:3000/auth/logout');
+                    const response = await axios.get('https://jschatapp.onrender.com/auth/logout');
 
                     sessionStorage.removeItem('authdata')
                     alert('Logout successful');
@@ -495,7 +480,7 @@
 
             try {
                 // Send the user data to the server using Axios
-                const response = await axios.post('http://localhost:3000/msg/sendmsg', msg);
+                const response = await axios.post('https://jschatapp.onrender.com/msg/sendmsg', msg);
                 console.log(response)
                 getMsgs(msg.receiverid)
 
@@ -532,7 +517,7 @@
         const getMsgs = async (username) => {
             try {
 
-                const response = await axios.get('http://localhost:3000/msg/getmsgs');
+                const response = await axios.get('https://jschatapp.onrender.com/msg/getmsgs');
 
                 GET_MSGS = response.data.data;
 
@@ -570,13 +555,7 @@
                     }
 
                 })
-                // displaying the msg finally 
-                // let sendingMsgs = GET_MSGS.filter((ele) => { return ele.receiverid === username })
-                // let receivingMsgs = GET_MSGS.filter((ele) => { return ele.senderid === username })
-
-                // sendMsg(sendingMsgs)
-                // getMsg(receivingMsgs)
-
+              
 
 
             } catch (error) {
@@ -584,56 +563,7 @@
             }
 
         }
-        const sendMsg = (msgs) => {
-            if (msgs.length) {
-                msgs.forEach((item) => {
-                    console.log(item.msg)
-                    let msg_area = document.getElementById('msg-display-area')
-                    let msg_container = document.createElement("div")
-                    msg_container.innerHTML = `<div class="d-flex justify-content-end mb-4">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                                    alt="avatar 1" style="width: 45px; height: 100%;">
-                                <div class="p-3 ms-3"
-                                    style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
-                                    <p class="small mb-0" id="sender-msg">${item.msg}</p>
-                                </div>
-                            </div>`
-                    msg_area.appendChild(msg_container)
-                })
-
-            }
-            else {
-                return;
-            }
-
-
-
-        }
-        const getMsg = (msgs) => {
-            if (msgs.length) {
-                msgs.forEach((item) => {
-                    console.log(item.msg)
-                    let msg_area = document.getElementById('msg-display-area')
-                    let msg_container = document.createElement("div")
-                    msg_container.innerHTML = `<div class="d-flex justify-content-start mb-4">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                                    alt="avatar 1" style="width: 45px; height: 100%;">
-                                <div class="p-3 ms-3"
-                                    style="border-radius: 15px; background-color: white;">
-                                    <p class="small mb-0" id="sender-msg">${item.msg}</p>
-                                </div>
-                            </div>`
-                    msg_area.appendChild(msg_container)
-
-                })
-
-            }
-            else {
-                return;
-            }
-
-        }
-
+       
 
     </script>
 </body>

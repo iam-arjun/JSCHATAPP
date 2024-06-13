@@ -31,6 +31,7 @@ const __dirname = path.resolve();
 
 
 app.use(cookieParser());
+app.use(cors({ origin: "https://resonant-cheesecake-91ad4c.netlify.app" }))
 
 app.use(express.static(path.join(__dirname, "/public")));
 
