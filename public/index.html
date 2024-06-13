@@ -264,6 +264,8 @@
 
                     const response = await axios.post('https://jschatapp.onrender.com/auth/displayFrns', loginStatus);
                     friendsList = response.data.data
+                    console.log(friendsList)
+                    
 
 
                 }
@@ -292,7 +294,7 @@
             setTimeout(() => {
 
                 const dataContainer = document.getElementById('friendLink');
-                console.log('frindlist',friendsList)
+                console.log('frindlist', friendsList)
 
                 friendsList.forEach(item => {
                     const itemElement = document.createElement('a');
