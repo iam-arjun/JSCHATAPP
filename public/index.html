@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat app </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"
+        integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js"
+        integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <!-- NAVBAR STARTS...................... -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-4  ">
+        <a class="navbar-brand" href="/">Express</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#signuppage">Signup</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#loginpage">Login </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#chatpage">Chat</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fa-solid fa-circle" id="activeStatus"></i>&nbsp;Account</a>
+                </li>
+                <li class="nav-item" id="logout">
+                    <a class="nav-link" href="#"><i class="fa-solid fa-right-from-bracket"></i></a>
+                </li>
+
+
+
+            </ul>
+
+        </div>
+    </nav>
+
+    <!-- SIGNUP STARTS -->
+
+    <section class="vh-100 " style="background-color: #f0f1f1;" id="signuppage">
+        <div class=" d-flex align-items-center h-100">
+            <div class="container h-80">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="card" style="border-radius: 15px;">
+                            <div class="card-body p-5">
+                                <h4 class="text-uppercase text-center mb-5">Create an account</h4>
+
+                                <form id="signupform">
+
+                                    <div class="form-outline mb-2">
+                                        <input type="text" id="fullname" class="form-control form-control-lg"
+                                            placeholder="FULLNAME" name="fullname" required />
+
+                                    </div>
+
+                                    <div class="form-outline mb-2">
+                                        <input type="email" id="email" class="form-control form-control-lg "
+                                            placeholder="EMAIL" name="email" required />
+
+                                    </div>
+
+                                    <div class="form-outline mb-2">
+                                        <input type="password" id="password" class="form-control form-control-lg"
+                                            placeholder="PASSWORD" name="password" minlength="6" required>
+
+                                    </div>
+
+                                    <div class="form-outline mb-2">
+                                        <input type="password" id="cpassword" class="form-control form-control-lg"
+                                            placeholder="REPEAT PASSWORD" name="cpassword" minlength="6" required />
+
+                                    </div>
+
+                                    <div class="form-check d-flex justify-content-center mb-3">
+                                        <input class="form-check-input me-2" type="checkbox" value=""
+                                            id="form2Example3cg" />
+                                        <label class="form-check-label" for="form2Example3g">
+                                            I agree all statements in <a href="#!" class="text-body"><u>Terms of
+                                                    service</u></a>
+                                        </label>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit"
+                                            class="btn btn-success btn-block  text-light">Register</button>
+                                    </div>
+
+                                    <p class="text-center text-muted mt-2 mb-0">Have already an account? <a
+                                            href="#loginpage" class="fw-bold text-body"><u>Login here</u></a></p>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- LOGIN STARTS -->
+    <section class="vh-100" style="background-color: #f0f1f1;" id="loginpage">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+
+                            <h3 class="mb-5 text-uppercase">Sign in</h3>
+                            <form id="loginform">
+                                <div data-mdb-input-init class="form-outline mb-4">
+                                    <input type="email" id="l-email" class="form-control form-control-lg"
+                                        placeholder="EMAIL" name="email" required />
+
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <input type="password" id="l-password" class="form-control form-control-lg"
+                                        placeholder="PASSWORD" name="password" required />
+
+                                </div>
+
+                                <!-- Checkbox -->
+                                <div class="form-check d-flex justify-content-start mb-4">
+                                    <input class="form-check-input" type="checkbox" value="" id="form1Example3" />&nbsp;
+                                    <label class="form-check-label" for="form1Example3"> Remember password </label>
+                                </div>
+
+                                <button class="btn btn-success  btn-block" type="submit">Login</button>
+
+                            </form>
+
+
+                            <hr class="my-4">
+
+                            <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #ff9d00;"
+                                type="submit"><i class="fab fa-google me-2"></i> Sign in with
+                                google</button>
+
+                            <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #0051ff;"
+                                type="submit"><i class="fab fa-facebook-f me-2"></i>Sign in with
+                                facebook</button>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CHAT BOX STARTS -->
+
+    <section style="background-color: #eee;" id="chatpage">
+        <div class="container py-5">
+
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-3 card" style="border-radius: 15px;">
+                    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+                        <div class="position-sticky">
+                            <div class="list-group list-group-flush mx-3 mt-4 " id="friendLink">
+                                <h6 class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                                    Friends
+                                </h6>
+
+                            </div>
+                        </div>
+                    </nav>
+
+                </div>
+
+
+                <div class="col-md-8 col-lg-6 col-xl-4">
+
+                    <div class="card" id="chatbox" style="border-radius: 15px;overflow-y:scroll;height:70vh">
+                        <div class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
+                            style="border-top-left-radius: 15px; border-top-right-radius: 15px;position:sticky;top:0;">
+                            <i class="fas fa-angle-left"></i>
+
+                            <p class="mb-0 fw-bold" id='chat_box_top_username'>JSCHATBOX</p>
+
+
+                            <i class="fas fa-times"></i>
+                        </div>
+
+
+                        <div class="card-body">
+
+                            <div id="chat_splash_text">
+                                <h4>
+                                    <center>Start to chat by selecting the friends!</center>
+                                </h4>
+                            </div>
+                            <div id="msg-display-area"></div>
+                            <!-- <div class="d-flex justify-content-end mb-4">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                                    alt="avatar 1" style="width: 45px; height: 100%;">
+                                <div class="p-3 ms-3"
+                                    style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                                    <p class="small mb-0" id="sender-msg"></p>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start mb-4">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                                    alt="avatar 1" style="width: 45px; height: 100%;">
+                                <div class="p-3 ms-3"
+                                    style="border-radius: 15px; background-color: rgba(255, 255, 255, 0.2);">
+                                    <p class="small mb-0" id="receiver-msg">$</p>
+                                </div>
+                            </div> -->
+                            <p id="sender-msg" class="text-primary"></p>
+                            <p id="receiver-msg" class="text-success"></p>
+
+
+                            <form id="msgform">
+                                <div class="form-outline">
+                                    <textarea class="form-control" id="msginput" rows="4" name="msg"></textarea>
+
+                                </div>
+
+                                <button class="btn btn-primary btn-sm my-2">SEND</button>
+
+
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </section>
+
+
+
+
+
+
+    <script>
+        let loginStatus;
+        let friendsList = [];
+        let GET_MSGS = [];
+
+        const displayFrns = async () => {
+            try {
+                if (loginStatus) {
+
+                    const response = await axios.post('http://localhost:3000/auth/displayFrns', loginStatus);
+                    friendsList = response.data.data
+
+
+                }
+                else {
+                    return;
+                }
+
+            } catch (error) {
+                throw new Error(error)
+            }
+
+        }
+        window.onload = function () {
+
+
+
+            loginStatus = JSON.parse(sessionStorage.getItem('authdata'))
+            displayFrns()
+            // setInterval(() => {
+            //     getMsgs()
+
+            // }, 500);
+
+
+
+            setTimeout(() => {
+
+                const dataContainer = document.getElementById('friendLink');
+
+                friendsList.forEach(item => {
+                    const itemElement = document.createElement('a');
+                    itemElement.className = 'list-group-item list-group-item-action py-2 ripple ';
+
+                    itemElement.addEventListener('click', function (event) {
+                        event.preventDefault(); // Prevent the default anchor behavior
+                        selectFrn(item.fullname);
+                    });
+                    itemElement.innerHTML = item.fullname
+
+                    dataContainer.appendChild(itemElement);
+                });
+
+            }, 500);
+
+
+
+
+
+
+            let msgbox = document.getElementById('msginput')
+            let accountActive = document.getElementById('activeStatus')
+            if (loginStatus) {
+
+
+                msgbox.disabled = false
+                accountActive.style.color = 'green'
+
+
+            }
+
+            else {
+                msgbox.disabled = true
+
+            }
+
+
+
+
+        }
+
+        const socket = io("http://localhost:3000",
+            {
+
+                query: {
+                    userId: JSON.parse(sessionStorage.getItem('authdata')) ? JSON.parse(sessionStorage.getItem('authdata')).authid : ""
+                },
+            }
+        );
+
+
+
+        socket.on("newMessage", (newMessage) => {
+            console.log(newMessage)
+
+            getMsgs(newMessage.senderid)
+            // alert('newmsg')
+
+
+
+        });
+
+        socket.on("sentMessage", (MSG) => {
+
+
+            let CHATBOX = document.getElementById('chatbox')
+            CHATBOX.scrollTop = CHATBOX.scrollHeight
+            CHATBOX.scrollIntoView({ behavior: 'smooth' })
+
+
+        });
+
+
+        // PURE JS STARTS HERE..............................................................................
+
+        // SIGNING UP THE FORM
+        document.getElementById('signupform').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+            // Get the values from the form inputs
+            let fullname = document.getElementById('fullname')
+            let email = document.getElementById('email')
+            let password = document.getElementById('password')
+            let cpassword = document.getElementById('cpassword')
+
+            // Create a user object with the form data
+            const user = {
+                fullname: fullname.value,
+                email: email.value,
+                password: password.value,
+                cpassword: cpassword.value
+            };
+
+            try {
+                // Send the user data to the server using Axios
+                const response = await axios.post('http://localhost:3000/auth/signup', user);
+
+
+                alert('Signup successful');
+                window.location.assign('/')
+
+            } catch (error) {
+                // Handle errors
+                console.error('Error during signup:', error);
+                alert('Signup failed');
+            }
+            fullname.value = ""; email.value = ""; password.value = ""; cpassword.value = "";
+        });
+
+        // LOGIN FORM 
+        document.getElementById('loginform').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+            // Get the values from the form inputs
+
+            let email = document.getElementById('l-email')
+            let password = document.getElementById('l-password')
+
+
+            // Create a user object with the form data
+            const user = {
+
+                email: email.value,
+                password: password.value,
+            };
+
+            try {
+                // Send the user data to the server using Axios
+                const response = await axios.post('http://localhost:3000/auth/login', user);
+
+
+                alert('Login successful');
+                sessionStorage.setItem('authdata', JSON.stringify({ isloggedin: true, authid: response.data.data.fullname }))
+                window.location.reload()
+                window.location.assign('/')
+
+
+            } catch (error) {
+                // Handle errors
+                console.error('Error during Login:', error);
+                alert('Login failed');
+
+
+            }
+            email.value = ""; password.value = "";
+
+        });
+
+        //LOGOUT 
+        document.getElementById('logout').addEventListener('click', async function () {
+
+            try {
+                // Send the user data to the server using Axios
+                if (confirm('Do you want to logout? ')) {
+                    const response = await axios.get('http://localhost:3000/auth/logout');
+
+                    sessionStorage.removeItem('authdata')
+                    alert('Logout successful');
+                    window.location.reload()
+                }
+
+
+            } catch (error) {
+                // Handle errors
+                console.error('Error during Logout:', error);
+                alert('Logout failed');
+            }
+        })
+
+        // MESSGING FORM
+
+        document.getElementById('msgform').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+            // Get the values from the form inputs
+
+            let newmsg = document.getElementById('msginput')
+
+
+
+            // Create a user object with the form data
+            const msg = {
+                senderid: loginStatus.authid,
+                receiverid: document.getElementById("chat_box_top_username").innerHTML,
+                msg: newmsg.value
+
+            };
+
+            try {
+                // Send the user data to the server using Axios
+                const response = await axios.post('http://localhost:3000/msg/sendmsg', msg);
+                console.log(response)
+                getMsgs(msg.receiverid)
+
+                newmsg.value = "";
+
+
+
+            } catch (error) {
+                throw new Error(error)
+
+            }
+
+
+        });
+
+
+
+
+        const selectFrn = (username) => {
+
+            let chat_splasher_text = document.getElementById("chat_splash_text")
+            chat_splasher_text.style.display = 'none'
+
+
+            document.getElementById("chat_box_top_username").innerHTML = username;
+
+
+
+            getMsgs(username)
+
+
+        }
+
+        const getMsgs = async (username) => {
+            try {
+
+                const response = await axios.get('http://localhost:3000/msg/getmsgs');
+
+                GET_MSGS = response.data.data;
+
+                let msg_area = document.getElementById('msg-display-area')
+                msg_area.innerHTML = " "
+
+                GET_MSGS.forEach((item) => {
+                    if (item.receiverid === username) {
+                        let msg_area = document.getElementById('msg-display-area')
+                        let msg_container = document.createElement("div")
+                        msg_container.innerHTML = `<div class="d-flex justify-content-end mb-4">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                                    alt="avatar 1" style="width: 45px; height: 100%;">
+                                <div class="p-3 ms-3"
+                                    style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                                    <p class="small mb-0" id="sender-msg">${item.msg}</p>
+                                </div>
+                            </div>`
+                        msg_area.appendChild(msg_container)
+
+                    }
+                    if (item.senderid === username) {
+                        let msg_area = document.getElementById('msg-display-area')
+                        let msg_container = document.createElement("div")
+                        msg_container.innerHTML = `<div class="d-flex justify-content-start mb-4">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                                    alt="avatar 1" style="width: 45px; height: 100%;">
+                                <div class="p-3 ms-3"
+                                    style="border-radius: 15px; background-color: white;">
+                                    <p class="small mb-0" id="sender-msg">${item.msg}</p>
+                                </div>
+                            </div>`
+                        msg_area.appendChild(msg_container)
+
+                    }
+
+                })
+                // displaying the msg finally 
+                // let sendingMsgs = GET_MSGS.filter((ele) => { return ele.receiverid === username })
+                // let receivingMsgs = GET_MSGS.filter((ele) => { return ele.senderid === username })
+
+                // sendMsg(sendingMsgs)
+                // getMsg(receivingMsgs)
+
+
+
+            } catch (error) {
+                throw new Error(error)
+            }
+
+        }
+        const sendMsg = (msgs) => {
+            if (msgs.length) {
+                msgs.forEach((item) => {
+                    console.log(item.msg)
+                    let msg_area = document.getElementById('msg-display-area')
+                    let msg_container = document.createElement("div")
+                    msg_container.innerHTML = `<div class="d-flex justify-content-end mb-4">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                                    alt="avatar 1" style="width: 45px; height: 100%;">
+                                <div class="p-3 ms-3"
+                                    style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                                    <p class="small mb-0" id="sender-msg">${item.msg}</p>
+                                </div>
+                            </div>`
+                    msg_area.appendChild(msg_container)
+                })
+
+            }
+            else {
+                return;
+            }
+
+
+
+        }
+        const getMsg = (msgs) => {
+            if (msgs.length) {
+                msgs.forEach((item) => {
+                    console.log(item.msg)
+                    let msg_area = document.getElementById('msg-display-area')
+                    let msg_container = document.createElement("div")
+                    msg_container.innerHTML = `<div class="d-flex justify-content-start mb-4">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                                    alt="avatar 1" style="width: 45px; height: 100%;">
+                                <div class="p-3 ms-3"
+                                    style="border-radius: 15px; background-color: white;">
+                                    <p class="small mb-0" id="sender-msg">${item.msg}</p>
+                                </div>
+                            </div>`
+                    msg_area.appendChild(msg_container)
+
+                })
+
+            }
+            else {
+                return;
+            }
+
+        }
+
+
+    </script>
+</body>
+
+</html>
