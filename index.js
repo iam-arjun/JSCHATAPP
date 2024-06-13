@@ -3,6 +3,7 @@ import express from 'express'
 import connectToMongoDB from './DB/dbconnect.js';
 import path from 'path'
 import cookieParser from "cookie-parser";
+import cors from 'cors'
 
 
 import authRoute from './ROUTES/auth.routes.js'
