@@ -258,30 +258,30 @@
         let friendsList = [];
         let GET_MSGS = [];
         let loginStatus = JSON.parse(sessionStorage.getItem('authdata'))
-        const displayFrns = async () => {
-            try {
-                if (loginStatus) {
 
-                    const response = await axios.post('https://jschatapp.onrender.com/auth/displayFrns', loginStatus);
-                    friendsList = response.data.data
-                    console.log(friendsList)
-                    
-
-
-                }
-                else {
-                    return;
-                }
-
-            } catch (error) {
-                throw new Error(error)
-            }
-
-        }
         window.onload = function () {
 
 
+            const displayFrns = async () => {
+                try {
+                    if (loginStatus) {
 
+                        const response = await axios.post('https://jschatapp.onrender.com/auth/displayFrns', loginStatus);
+                        friendsList = response.data.data
+                        console.log(friendsList)
+
+
+
+                    }
+                    else {
+                        return;
+                    }
+
+                } catch (error) {
+                    throw new Error(error)
+                }
+
+            }
 
             displayFrns()
             // setInterval(() => {
