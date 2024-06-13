@@ -254,10 +254,10 @@
 
 
     <script>
-        let loginStatus;
+ 
         let friendsList = [];
         let GET_MSGS = [];
-
+       let  loginStatus = JSON.parse(sessionStorage.getItem('authdata'))
         const displayFrns = async () => {
             try {
                 if (loginStatus) {
@@ -280,7 +280,7 @@
 
 
 
-            loginStatus = JSON.parse(sessionStorage.getItem('authdata'))
+        
             displayFrns()
             // setInterval(() => {
             //     getMsgs()
