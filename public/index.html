@@ -259,57 +259,46 @@
         let GET_MSGS = [];
         let loginStatus = JSON.parse(sessionStorage.getItem('authdata'))
 
-        window.onload = function () {
+        window.onload = async function () {
 
 
-            const displayFrns = async () => {
-                try {
-                    if (loginStatus) {
+            try {
+                if (loginStatus) {
+                    console.log(loginStatus)
 
-                        const response = await axios.post('https://jschatapp.onrender.com/auth/displayFrns', loginStatus);
-                        friendsList = response.data.data
-                        console.log(friendsList)
+                    const response = await axios.post('https://jschatapp.onrender.com/auth/displayFrns', loginStatus);
+                    friendsList = response.data.data
+                    console.log(friendsList)
 
 
 
-                    }
-                    else {
-                        return;
-                    }
-
-                } catch (error) {
-                    throw new Error(error)
+                }
+                else {
+                    return;
                 }
 
+            } catch (error) {
+                throw new Error(error)
             }
 
-            displayFrns()
-            // setInterval(() => {
-            //     getMsgs()
 
-            // }, 500);
+            const dataContainer = document.getElementById('friendLink');
+            console.log('frindlist', friendsList)
 
+            friendsList.forEach(item => {
+                const itemElement = document.createElement('a');
+                itemElement.className = 'list-group-item list-group-item-action py-2 ripple ';
 
-
-            setTimeout(() => {
-
-                const dataContainer = document.getElementById('friendLink');
-                console.log('frindlist', friendsList)
-
-                friendsList.forEach(item => {
-                    const itemElement = document.createElement('a');
-                    itemElement.className = 'list-group-item list-group-item-action py-2 ripple ';
-
-                    itemElement.addEventListener('click', function (event) {
-                        event.preventDefault(); // Prevent the default anchor behavior
-                        selectFrn(item.fullname);
-                    });
-                    itemElement.innerHTML = item.fullname
-
-                    dataContainer.appendChild(itemElement);
+                itemElement.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevent the default anchor behavior
+                    selectFrn(item.fullname);
                 });
+                itemElement.innerHTML = item.fullname
 
-            }, 500);
+                dataContainer.appendChild(itemElement);
+            });
+
+
 
 
 
