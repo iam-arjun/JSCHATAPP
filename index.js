@@ -3,7 +3,6 @@ import express from 'express'
 import connectToMongoDB from './DB/dbconnect.js';
 import path from 'path'
 import cookieParser from "cookie-parser";
-import cors from 'cors'
 
 
 import authRoute from './ROUTES/auth.routes.js'
@@ -32,7 +31,7 @@ const __dirname = path.resolve();
 
 
 app.use(cookieParser());
-app.use(cors({ origin: "https://resonant-cheesecake-91ad4c.netlify.app" }))
+
 
 app.use(express.static(path.join(__dirname, "/public")));
 
