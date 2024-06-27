@@ -8,10 +8,11 @@ import cookieParser from "cookie-parser";
 import authRoute from './ROUTES/auth.routes.js'
 import msgRoute from './ROUTES/msg.routes.js'
 import bodyParser from 'body-parser';
-// import { verifyUser } from './MIDDLEWARE/verifyUser.js'
+
 import session from 'express-session'
 import http from 'http'
 import { Server as SocketIOServer } from 'socket.io';
+
 
 const app = express()
 const server = http.createServer(app);
@@ -23,7 +24,7 @@ app.use(session({
     saveUninitialized: true
 }));
 app.use(express.json()); // to parse the incoming requests with JSON payloads (from req.body)
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 
 
@@ -39,18 +40,17 @@ app.use(express.static(path.join(__dirname, "/public")));
 
 
 
-// Middleware to parse form data
-// Middleware to parse cookies
-app.use(cookieParser());
-
 
 app.use('/auth', authRoute)
 app.use('/msg', msgRoute)
+
+// Serve static files from the "uploads" directory
+app.use('/UPLOADS', express.static(path.join(__dirname, 'UPLOADS')));
 // app.use(verifyUser)
 let socketIds = {}
 // Define Socket.IO events
 export const getSocketIds = (receiverid) => {
-    console.log(socketIds)
+
     return socketIds[receiverid];
 
 }
@@ -59,19 +59,14 @@ io.on('connection', (socket) => {
 
     const userId = socket.handshake.query.userId;
 
+    if (userId !== 'undefined') socketIds[userId] = socket.id;
 
-    if (userId !== "undefined") socketIds[userId] = socket.id;
 
-    // Handle chat message event
-    socket.on('chat message', (msg) => {
-        console.log('message: ' + msg);
-        io.emit('chat message', msg); // Broadcast the message to all connected clients
+
+    // Handle disconnection
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
     });
-
-    // // Handle disconnection
-    // socket.on('disconnect', () => {
-    //     console.log('User disconnected');
-    // });
 });
 // Define a route to render index.html
 app.get('/', (req, res) => {
@@ -86,4 +81,4 @@ server.listen(PORT, () => {
 }
 
 );
-export { app, io, server }
+export { app, io, server, socketIds }

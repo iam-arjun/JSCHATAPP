@@ -18,12 +18,8 @@ export const sendmsg = async (req, res) => {
         await newmsg.save()
         res.json({ data: newmsg })
         let receiver_socket_id = getSocketIds(receiverid)
-        console.log(receiver_socket_id)
+     
         io.to(receiver_socket_id).emit("newMessage", newmsg);
-
-
-        // console.log('test', receiverSocketId)
-        // io.to(receiverSocketId).emit("newMessage", newmsg);
 
 
     } catch (error) {

@@ -32,3 +32,37 @@
 .msg-container {
     display: none;
 }
+
+#USERNAME {
+    font-size: 14px;
+    color: rgb(8, 168, 5);
+    font-weight: 600;
+    text-align: center;
+
+
+}
+
+
+#selectedAvatar {
+    font-size: 40px;
+}
+
+
+input[type='file'] {
+    border: 2px solid black;
+
+}
+
+/* Media query starts */
+
+@media only screen and (max-width: 767px) {
+    #chat-col {
+        display: none;
+    }
+
+    #signuppage,
+    #loginpage {
+        height: 60vh !important;
+    }
+
+}

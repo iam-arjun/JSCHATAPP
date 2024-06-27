@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat app </title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -21,44 +24,125 @@
 
 <body>
     <!-- NAVBAR STARTS...................... -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light px-4  ">
-        <a class="navbar-brand" href="/">Express</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+
+    <!-- 
+    <nav class="navbar navbar-dark bg-dark ">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
+            aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="collapse " id="navbarToggleExternalContent ">
+            <div class="bg-dark p-4">
+                <ul class="navbar-nav mr-auto ">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#signuppage">Signup</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#loginpage">Login </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#chatpage">Chat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fa-solid fa-circle"
+                                id="activeStatus"></i>&nbsp;Account</a>
+                    </li>
+                    <li class="nav-item" id="logout">
+                        <a class="nav-link" href="#"><i class="fa-solid fa-right-from-bracket"></i></a>
+                    </li>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#signuppage">Signup</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#loginpage">Login </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#chatpage">Chat</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-circle" id="activeStatus"></i>&nbsp;Account</a>
-                </li>
-                <li class="nav-item" id="logout">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-right-from-bracket"></i></a>
-                </li>
 
 
+                </ul>
 
-            </ul>
-
+            </div>
         </div>
-    </nav>
+    </nav> -->
+    <div class="pos-f-t">
+
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+            <a class="navbar-brand " href="/">JSchat</a>
+            <button class="navbar-toggler d-md-none" id="navbarToggler" type="button" data-toggle="collapse"
+                data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse d-md-flex justify-content-between w-100" id="navbarToggleExternalContent">
+                <ul class="navbar-nav ">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#signuppage">Signup</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#loginpage">Login </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#chatpage">Chat</a>
+                    </li>
+
+
+
+                </ul>
+                <div>
+                    <ul class="navbar-nav mr-3">
+
+                        <li class="nav-item">
+                            <div class="dropdown show">
+                                <a class="btn btn-outline-secondary  dropdown-toggle" href="#" role="button"
+                                    id="account-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Account
+
+                                </a>
+
+
+                                <div class="dropdown-menu" id="account-dropdown-menu">
+
+
+                                    <div>
+                                        <form id="Imgform"
+                                            class="d-flex flex-column justify-content-center align-items-center">
+
+
+                                            <label class="form-label m-1" for="profile-pic"> <img id="selectedAvatar"
+                                                    src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
+                                                    class="rounded-circle"
+                                                    style="width: 100px; height: 100px; object-fit: cover;"
+                                                    alt="pp" /></label>
+                                            <input type="file" class="form-control d-none" id="profile-pic"
+                                                name="profile-pic" onchange="displayPP()" />
+                                            <button data-mdb-ripple-init class="btn btn-outline-warning btn-rounded ">
+
+                                                <i class="fa-solid fa-plus"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                    <a class="dropdown-item" href="#" id="USERNAME"></a>
+
+
+                                </div>
+                            </div>
+
+                        </li>
+                        <li class="nav-item" id="logout">
+                            <a class="nav-link" href="#"><i class="fa-solid fa-right-from-bracket"></i></a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </nav>
+    </div>
 
     <!-- SIGNUP STARTS -->
 
-    <section class="vh-100 " style="background-color: #f0f1f1;" id="signuppage">
-        <div class=" d-flex align-items-center h-100">
-            <div class="container h-80">
-                <div class="row d-flex justify-content-center align-items-center h-100">
+    <section class="vh-100 py-4 " style="background-color: #f0f1f1;" id="signuppage">
+        <div class=" d-flex align-items-center ">
+            <div class="container  py-4">
+                <div class="row d-flex justify-content-center align-items-center ">
                     <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                         <div class="card" style="border-radius: 15px;">
                             <div class="card-body p-5">
@@ -90,14 +174,7 @@
 
                                     </div>
 
-                                    <div class="form-check d-flex justify-content-center mb-3">
-                                        <input class="form-check-input me-2" type="checkbox" value=""
-                                            id="form2Example3cg" />
-                                        <label class="form-check-label" for="form2Example3g">
-                                            I agree all statements in <a href="#!" class="text-body"><u>Terms of
-                                                    service</u></a>
-                                        </label>
-                                    </div>
+
 
                                     <div class="d-flex justify-content-center">
                                         <button type="submit"
@@ -120,9 +197,9 @@
 
 
     <!-- LOGIN STARTS -->
-    <section class="vh-100" style="background-color: #f0f1f1;" id="loginpage">
-        <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
+    <section class="vh-100 py-5" style="background-color: #f0f1f1;" id="loginpage">
+        <div class="container py-4 ">
+            <div class="row d-flex justify-content-center align-items-center ">
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div class="card shadow-2-strong" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-center">
@@ -141,7 +218,7 @@
 
                                 </div>
 
-                                <!-- Checkbox -->
+
                                 <div class="form-check d-flex justify-content-start mb-4">
                                     <input class="form-check-input" type="checkbox" value="" id="form1Example3" />&nbsp;
                                     <label class="form-check-label" for="form1Example3"> Remember password </label>
@@ -173,17 +250,16 @@
 
     <!-- CHAT BOX STARTS -->
 
-    <section style="background-color: #eee;" id="chatpage">
+    <section style="background-color: #eee;" id="chatpage" class="py-5">
         <div class="container py-5">
 
             <div class="row d-flex justify-content-center">
-                <div class="col-md-3 card" style="border-radius: 15px;">
-                    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
-                        <div class="position-sticky">
+                <div class="col-sm-12 col-md-4  card" style="border-radius: 15px;" id="friendsListContainer">
+                    <nav id="sidebarMenu" class="bg-white position-sticky">
+                        <h4>Friends</h4>
+                        <div>
                             <div class="list-group list-group-flush mx-3 mt-4 " id="friendLink">
-                                <h6 class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-                                    Friends
-                                </h6>
+
 
                             </div>
                         </div>
@@ -192,12 +268,12 @@
                 </div>
 
 
-                <div class="col-md-8 col-lg-6 col-xl-4">
+                <div class="col-sm-12 col-md-8    mt-4" id="chat-col">
 
                     <div class="card" id="chatbox" style="border-radius: 15px;overflow-y:scroll;height:70vh">
-                        <div class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
+                        <div class="card-header d-flex justify-content-between align-items-center p-3 bg-success text-white border-bottom-0"
                             style="border-top-left-radius: 15px; border-top-right-radius: 15px;position:sticky;top:0;">
-                            <i class="fas fa-angle-left"></i>
+                            <i class="fas fa-angle-left" id="chat-box-back-icon" onclick="chatBoxBackIcon()"></i>
 
                             <p class="mb-0 fw-bold" id='chat_box_top_username'>JSCHATBOX</p>
 
@@ -255,26 +331,82 @@
 
     <script>
 
+        let serverUrl = "https://jschatapp.onrender.com"
+
         let friendsList = [];
         let GET_MSGS = [];
         let loginStatus = JSON.parse(sessionStorage.getItem('authdata'))
+        console.log(loginStatus)
 
         window.onload = async function () {
 
 
             try {
+                let USERNAME_CON = document.getElementById('account-dropdown-menu')
+                let accountBtn = document.getElementById('account-btn')
+
+                let msgbox = document.getElementById('msginput')
+
                 if (loginStatus) {
-                    console.log(loginStatus)
+                    accountBtn.classList.add('btn-outline-success')
+                    let USERNAME = document.getElementById('USERNAME')
+                    USERNAME.innerText = loginStatus.authid
+                    getProfile()
+                    msgbox.disabled = false
 
-                    const response = await axios.post('https://jschatapp.onrender.com/auth/displayFrns', loginStatus);
+
+                    const response = await axios.get(`${serverUrl}/auth/displayFrns`);
                     friendsList = response.data.data
-                    console.log(friendsList)
 
 
+                    const dataContainer = document.getElementById('friendLink');
+
+                    let onlineusers = await getOnlineUsers()
+
+
+                    // Attach listener function on state changes
+
+                    friendsList.forEach(async (item, i) => {
+                        const itemElement = document.createElement('a');
+                        itemElement.className = 'list-group-item list-group-item-action py-2 ripple ';
+
+                        itemElement.addEventListener('click', function (event) {
+                            event.preventDefault(); // Prevent the default anchor behavior
+                            selectFrn(item.fullname);
+
+                        });
+                        if (Object.keys(onlineusers).includes(item.fullname)) {
+
+                            itemElement.innerHTML = `<img src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg" id="friendsImg" class="rounded-circle" style="width: 30px;height:30px;object-fit:cover;"
+  alt="Avatar" /> <span>${item.fullname} </span><span class="badge badge-success ">Active</span>  `
+
+                            itemElement.querySelector('#friendsImg').src = `UPLOADS/${item.profilePic.filename}`
+
+
+                            dataContainer.appendChild(itemElement);
+
+
+                        }
+                        else {
+
+                            itemElement.innerHTML = `<img src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg" class="rounded-circle"  id="friendsImg" style="width: 30px;height:30px;object-fit:cover;"
+  alt="Avatar" /> <span>${item.fullname} </span>`
+                            itemElement.querySelector('#friendsImg').src = `UPLOADS/${item.profilePic.filename}`
+
+                            dataContainer.appendChild(itemElement);
+                        }
+
+
+
+                    });
 
                 }
                 else {
-                    return;
+                    msgbox.disabled = true;
+
+                    USERNAME_CON.style.display = 'none'
+
+
                 }
 
             } catch (error) {
@@ -282,80 +414,33 @@
             }
 
 
-            const dataContainer = document.getElementById('friendLink');
-            console.log('frindlist', friendsList)
-
-            friendsList.forEach(item => {
-                const itemElement = document.createElement('a');
-                itemElement.className = 'list-group-item list-group-item-action py-2 ripple ';
-
-                itemElement.addEventListener('click', function (event) {
-                    event.preventDefault(); // Prevent the default anchor behavior
-                    selectFrn(item.fullname);
-                });
-                itemElement.innerHTML = item.fullname
-
-                dataContainer.appendChild(itemElement);
-            });
-
-
-
-
-
-
-
-
-            let msgbox = document.getElementById('msginput')
-            let accountActive = document.getElementById('activeStatus')
-            if (loginStatus) {
-
-
-                msgbox.disabled = false
-                accountActive.style.color = 'green'
-
-
-            }
-
-            else {
-                msgbox.disabled = true
-
-            }
-
-
 
 
         }
 
-        const socket = io("https://jschatapp.onrender.com",
-            {
+        if (loginStatus) {
+            const socket = io(`${serverUrl}`,
+                {
 
-                query: {
-                    userId: JSON.parse(sessionStorage.getItem('authdata')) ? JSON.parse(sessionStorage.getItem('authdata')).authid : ""
-                },
-            }
-        );
+                    query: {
+                        userId: loginStatus.authid
+                    },
+                }
+            );
+            socket.on("newMessage", (newMessage) => {
 
 
-
-        socket.on("newMessage", (newMessage) => {
-            console.log(newMessage)
-
-            getMsgs(newMessage.senderid)
-            // alert('newmsg')
+                getMsgs(newMessage.senderid)
+                // alert('newmsg')
 
 
 
-        });
-
-        socket.on("sentMessage", (MSG) => {
+            });
 
 
-            let CHATBOX = document.getElementById('chatbox')
-            CHATBOX.scrollTop = CHATBOX.scrollHeight
-            CHATBOX.scrollIntoView({ behavior: 'smooth' })
+        }
 
 
-        });
 
 
         // PURE JS STARTS HERE..............................................................................
@@ -379,7 +464,7 @@
 
             try {
                 // Send the user data to the server using Axios
-                const response = await axios.post('https://jschatapp.onrender.com/auth/signup', user);
+                const response = await axios.post(`${serverUrl}/auth/signup`, user);
 
 
                 alert('Signup successful');
@@ -411,7 +496,7 @@
 
             try {
                 // Send the user data to the server using Axios
-                const response = await axios.post('https://jschatapp.onrender.com/auth/login', user);
+                const response = await axios.post(`${serverUrl}/auth/login`, user);
 
 
                 alert('Login successful');
@@ -437,7 +522,7 @@
             try {
                 // Send the user data to the server using Axios
                 if (confirm('Do you want to logout? ')) {
-                    const response = await axios.get('https://jschatapp.onrender.com/auth/logout');
+                    const response = await axios.delete(`${serverUrl}/auth/logout/${loginStatus.authid}`);
 
                     sessionStorage.removeItem('authdata')
                     alert('Logout successful');
@@ -472,8 +557,8 @@
 
             try {
                 // Send the user data to the server using Axios
-                const response = await axios.post('https://jschatapp.onrender.com/msg/sendmsg', msg);
-                console.log(response)
+                const response = await axios.post(`${serverUrl}/msg/sendmsg`, msg);
+
                 getMsgs(msg.receiverid)
 
                 newmsg.value = "";
@@ -492,6 +577,8 @@
 
 
         const selectFrn = (username) => {
+            document.getElementById("friendsListContainer").style.display = 'none'
+            document.getElementById('chat-col').style.display = 'block';
 
             let chat_splasher_text = document.getElementById("chat_splash_text")
             chat_splasher_text.style.display = 'none'
@@ -509,7 +596,7 @@
         const getMsgs = async (username) => {
             try {
 
-                const response = await axios.get('https://jschatapp.onrender.com/msg/getmsgs');
+                const response = await axios.get(`${serverUrl}/msg/getmsgs`);
 
                 GET_MSGS = response.data.data;
 
@@ -557,7 +644,150 @@
         }
 
 
+        const getOnlineUsers = async () => {
+            try {
+                const res = await axios.get(`${serverUrl}/auth/onlineUsers`)
+                let tempData = res.data.data
+                return tempData
+
+
+
+            } catch (error) {
+                throw new Error(error)
+            }
+
+        }
+
+        const chatBoxBackIcon = () => {
+            document.getElementById("friendsListContainer").classList.add('d-md-block')
+            document.getElementById('chat-col').classList.add('d-md-block')
+        }
+
+
+        const displayPP = () => {
+            const profilePic = document.getElementById('profile-pic').files[0];
+            const imgSrc = document.getElementById('selectedAvatar')
+
+            // If there's no file, do nothing
+            if (!profilePic) return;
+
+            // Create a new FileReader() object
+            let reader = new FileReader();
+
+            // Setup the callback event to run when the file is read
+            reader.onload = function logFile(event) {
+
+                imgSrc.src = event.target.result;
+
+            };
+
+            // Read the file
+            reader.readAsDataURL(profilePic);
+            uploadProfile()
+        }
+
+        const uploadProfile = () => {
+            document.getElementById('Imgform').addEventListener('submit', async function (event) {
+                event.preventDefault();
+                const imgSrc = document.getElementById('selectedAvatar')
+
+                const name = loginStatus.authid
+                const profilePic = document.getElementById('profile-pic').files[0];
+
+
+
+                // If there's no file, do nothing
+                if (!profilePic) return;
+
+                // Create a new FileReader() object
+                let reader = new FileReader();
+
+                // Setup the callback event to run when the file is read
+                reader.onload = function logFile(event) {
+
+
+                    imgSrc.src = event.target.result;
+
+                };
+
+                // Read the file
+                reader.readAsDataURL(profilePic);
+
+                if (!name || !profilePic) {
+                    messageElement.textContent = 'Please fill in all fields.';
+                    messageElement.classList.add('error');
+                    return;
+                }
+
+
+
+                const formData = new FormData();
+                formData.append('name', name);
+                formData.append('profile-pic', profilePic);
+
+                try {
+                    // Send the form data using Axios
+                    const response = await axios.post(`${serverUrl}/auth/uploadimg`, formData)
+
+
+                    const result = response.data
+
+                    if (result.success) {
+                        alert('Profile picture uploaded successfully!')
+
+
+                        getProfile()
+
+
+                    } else {
+                        throw new Error(result.message);
+                    }
+                } catch (error) {
+                    alert(error.message)
+
+                }
+            });
+
+        }
+
+
+        const getProfile = async () => {
+            const imgSrc = document.getElementById('selectedAvatar')
+
+            try {
+
+                const res = await axios.get(`${serverUrl}/auth/getProfile`)
+
+
+                if (res.data.imgUrl) {
+                    imgSrc.src = res.data.imgUrl
+                    return;
+
+                }
+
+
+
+            } catch (error) {
+                throw new Error(error);
+
+            }
+
+        }
+
+
     </script>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
 </body>
 
 </html>

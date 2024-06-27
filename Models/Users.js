@@ -12,6 +12,11 @@ const RegisterSchema = mongoose.Schema(
         password: {
             type: String, required: true,
         },
+        profilePic: {
+            filename: String,
+            path: String,
+            contentType: String
+        },
 
     },
     { timestamps: true }

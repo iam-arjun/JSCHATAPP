@@ -1,7 +1,13 @@
 import Signupmodel from '../Models/Users.js'
+
 import bcrypt from 'bcrypt'
+import { socketIds } from '../index.js';
+import multer from 'multer'
+import path from 'path'
+
 
 import jwt from 'jsonwebtoken'
+import { Error } from 'mongoose';
 const secretKey = 'your_secret_key'; // Replace this with your own secret key
 export const signup = async (req, res) => {
 
@@ -66,12 +72,12 @@ export const login = async (req, res) => {
 
 export const getAllUsers = async (req, res) => {
     try {
-        const { authid } = req.body
+
 
         const dataFromDB = await Signupmodel.find()
 
 
-        const filteredUser = dataFromDB.filter((e) => { return e.fullname !== authid });
+        const filteredUser = dataFromDB.filter((e) => { return e.fullname !== req.session.user.userName });
 
 
         // Convert data to an array
@@ -95,7 +101,11 @@ export const logout = async (req, res) => {
 
 
         res.clearCookie('token');
+        delete socketIds[req.params.id]
         res.json({ message: 'Logout successful' });
+
+
+
 
 
     } catch (error) {
@@ -103,7 +113,131 @@ export const logout = async (req, res) => {
     }
 
 
-
-
 }
+
+export const getOnlineUsers = async (req, res) => {
+    try {
+        res.json({ data: socketIds })
+
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+
+
+
+// Image controller 
+export const UploadImg = async (req, res) => {
+
+    // Set up storage engine using multer
+    const storage = multer.diskStorage({
+        destination: 'UPLOADS/',
+        filename: function (req, file, cb) {
+            cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        }
+    });
+
+
+
+
+    // Initialize upload variable with multer configuration
+    const upload = multer({
+        storage: storage,
+        limits: { fileSize: 1000000 }, // Limit file size to 1MB
+        fileFilter: function (req, file, cb) {
+            checkFileType(file, cb);
+        }
+    }).single('profile-pic');
+    // Check file type
+    function checkFileType(file, cb) {
+        const filetypes = /jpeg|jpg|png|gif/;
+        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+        const mimetype = filetypes.test(file.mimetype);
+
+        if (mimetype && extname) {
+
+
+            return cb(null, true);
+
+
+        } else {
+            cb('Error: Images Only!');
+        }
+    }
+
+
+
+    // Route to handle profile picture upload
+
+    upload(req, res, async (err) => {
+
+
+        if (err) {
+            res.status(400).json({ success: false, message: err });
+        } else {
+            if (req.file == undefined) {
+                res.status(400).json({ success: false, message: 'No file selected!' });
+            } else {
+
+                const existedImg = await Signupmodel.findOneAndUpdate(
+                    { fullname: req.body.name },
+                    { profilePic: req.file },
+                    { new: true } // Return the updated document
+                );
+                if (existedImg) {
+                    res.json({ success: true })
+                }
+                else {
+
+                    res.json({ success: false })
+                }
+
+
+            }
+        }
+    });
+}
+
+export const getProfilePic = async (req, res) => {
+    try {
+
+
+        const UserPP = await Signupmodel.findOne({ fullname: req.session.user.userName })
+
+        if (UserPP.profilePic) {
+
+            res.json({ imgUrl: `UPLOADS/${UserPP.profilePic.filename}` })
+        }
+        else {
+            return;
+        }
+
+
+
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
